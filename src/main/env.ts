@@ -163,6 +163,11 @@ export function buildChildEnv(shellEnv: NodeJS.ProcessEnv): Record<string, strin
   merged.PATH = cleanPath(merged.PATH, merged.HOME)
 
   for (const key of STRIP_VARS) delete merged[key]
+  // Recorded as the session's "entrypoint". The SDK's default ('sdk-ts') is on the CLI's exact
+  // blocklist for the terminal `claude --resume` picker, so Ember chats would never show up there.
+  // 'sdk-ember' keeps the sdk- prefix (same CLI behaviour) but isn't on that list. ('cli' does not
+  // work: the CLI rewrites it to 'sdk-cli' in non-interactive mode.)
+  merged.CLAUDE_CODE_ENTRYPOINT = 'sdk-ember'
   if (merged.ANTHROPIC_API_KEY && !shouldKeepApiKey(merged.ANTHROPIC_API_KEY, merged.HOME)) {
     delete merged.ANTHROPIC_API_KEY
     log.info('ANTHROPIC_API_KEY from the shell profile not passed to claude (CLI login is used instead)')
