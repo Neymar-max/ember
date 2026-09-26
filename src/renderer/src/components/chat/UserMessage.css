@@ -69,3 +69,43 @@
   font-size: 12px;
   color: var(--text-2);
 }
+
+.em-chat-user.is-queued {
+  background: transparent;
+  border: 1px dashed var(--text-4, rgba(31, 30, 29, 0.28));
+  padding: 9px 15px;
+  color: var(--text-2);
+}
+.em-chat-user__delivery {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 5px;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: var(--text-3);
+}
+.em-chat-user__delivery.is-queued {
+  color: var(--accent-brand);
+}
+.em-chat-user__delivery.is-queued svg {
+  animation: em-chat-queued-pulse 1.6s ease-in-out infinite;
+}
+.em-chat-user__delivery.is-read {
+  color: var(--success);
+  animation: em-chat-read-fade 0.3s ease-out;
+}
+@keyframes em-chat-queued-pulse {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 1; }
+}
+@keyframes em-chat-read-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .em-chat-user__delivery.is-queued svg,
+  .em-chat-user__delivery.is-read {
+    animation: none;
+  }
+}

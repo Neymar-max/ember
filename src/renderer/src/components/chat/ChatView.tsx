@@ -157,6 +157,11 @@ export function ChatView({ chatId }: { chatId: string }) {
               {node}
             </div>
           ))}
+          {chat?.queued?.map((q) => (
+            <div key={q.id} className="em-chat-item">
+              <UserMessage item={q} />
+            </div>
+          ))}
         </div>
       </div>
       {showJump && <ScrollToBottom onClick={() => scrollToBottom(true)} />}

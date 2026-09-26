@@ -14,6 +14,8 @@ import { Sidebar } from '@/components/layout/Sidebar'
 import { SettingsDialog } from '@/components/settings/SettingsDialog'
 import { SetupScreen } from '@/components/setup/SetupScreen'
 import { ChatView } from '@/components/chat/ChatView'
+import { SidePanel } from '@/components/panel/SidePanel'
+import { usePanel } from '@/store/panel'
 import { TaskPanel } from '@/components/tools/TaskPanel'
 import { resolveLang, useLang, useT } from '@/i18n'
 import { ember } from '@/lib/api'
@@ -64,6 +66,7 @@ export function App() {
   const t = useT()
   const env = useApp((s) => s.env)
   const settings = useApp((s) => s.settings)
+  const panelOpen = usePanel((s) => s.open)
   const appInfo = useApp((s) => s.appInfo)
   useEffect(() => setHomeDir(appInfo?.homeDir), [appInfo?.homeDir])
   const settingsOpen = useApp((s) => s.settingsOpen)
@@ -185,6 +188,7 @@ export function App() {
           )}
         </div>
       </main>
+      {panelOpen && showChat && activeChatId && <SidePanel chatId={activeChatId} key={activeChatId} />}
       <SettingsDialog open={settingsOpen} onClose={() => setSettingsOpen(false)} />
     </div>
   )

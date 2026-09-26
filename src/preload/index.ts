@@ -49,6 +49,8 @@ const api: EmberAPI = {
   },
   files: {
     suggest: (cwd, query) => invoke(IPC.filesSuggest, cwd, query),
+    read: (path, cwd) => invoke(IPC.filesRead, path, cwd),
+    recent: (cwd, sinceMs) => invoke(IPC.filesRecent, cwd, sinceMs),
     pathForFile: (file) => {
       try {
         return webUtils.getPathForFile(file)

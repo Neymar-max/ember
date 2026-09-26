@@ -1,11 +1,13 @@
 /** Top title bar: rename-in-place chat title, project chip, open-in-terminal, context-usage ring (§4.1). */
 import clsx from 'clsx'
-import { Folder, Terminal } from 'lucide-react'
+import { Folder, PanelRight, Terminal } from 'lucide-react'
 import { useState } from 'react'
 import { useT } from '@/i18n'
 import { ember } from '@/lib/api'
 import { basename } from '@/lib/format'
 import { useChats } from '@/store/chats'
+import { usePanel } from '@/store/panel'
+import { useTaskRows } from '@/components/panel/SidePanel'
 import './Header.css'
 
 export function Header({ chatId, sidebarCollapsed }: { chatId: string | null; sidebarCollapsed: boolean }) {
@@ -16,6 +18,8 @@ export function Header({ chatId, sidebarCollapsed }: { chatId: string | null; si
   const chatTitle = useChats((s) => (chatId ? s.chats[chatId]?.title : undefined))
   const cwd = useChats((s) => (chatId ? s.chats[chatId]?.cwd : undefined))
   const sessionId = useChats((s) => (chatId ? s.chats[chatId]?.sessionId : undefined))
+  const panelOpen = usePanel((s) => s.open)
+  const running = useTaskRows(chatId).filter((r) => r.status === 'running').length
   const [renaming, setRenaming] = useState(false)
   const [draft, setDraft] = useState('')
 
@@ -73,6 +77,18 @@ export function Header({ chatId, sidebarCollapsed }: { chatId: string | null; si
               <span>{t('shell.header.openInTerminal')}</span>
             </button>
           </>
+        )}
+        {chatId && status !== undefined && status !== 'new' && (
+          <button
+            type="button"
+            className={clsx('em-shell-header__chip em-shell-header__panel', panelOpen && 'is-active')}
+            title={t('shell.panel.toggle')}
+            aria-pressed={panelOpen}
+            onClick={() => usePanel.getState().toggle()}
+          >
+            <PanelRight size={14} strokeWidth={1.75} />
+            {running > 0 && <span className="em-shell-header__badge">{running}</span>}
+          </button>
         )}
       </div>
     </div>

@@ -300,3 +300,27 @@ export type MenuCommand =
   | 'focus-composer'
   | 'interrupt'
   | 'open-project'
+
+/** Text preview of a file for the side panel. */
+export interface FilePreview {
+  /** absolute path after resolving against cwd / ~ */
+  path: string
+  exists: boolean
+  size?: number
+  mtimeMs?: number
+  content?: string
+  /** content was cut at the preview limit */
+  truncated?: boolean
+  /** looks binary — no content returned */
+  binary?: boolean
+  isDirectory?: boolean
+  error?: string
+}
+
+export interface RecentFile {
+  /** path relative to the cwd it was listed from */
+  rel: string
+  path: string
+  size: number
+  mtimeMs: number
+}

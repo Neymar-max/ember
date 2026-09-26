@@ -6,6 +6,7 @@ import ReactMarkdown from 'react-markdown'
 import type { Components } from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { ember } from '@/lib/api'
+import { usePanel } from '@/store/panel'
 import { CodeBlock } from './CodeBlock'
 import './Markdown.css'
 import { StreamingProvider } from './streamingContext'
@@ -40,7 +41,10 @@ const components: Components = {
       href={href}
       onClick={(e) => {
         e.preventDefault()
-        if (href) void ember.sys.openExternal(href)
+        if (!href) return
+        // Links to local files (work/report.md, /abs/path, file://…) open in the side panel.
+        if (!/^(https?|mailto):/i.test(href) && !href.startsWith('#')) usePanel.getState().openFile(decodeURI(href.replace(/^file:\/\//, '')))
+        else void ember.sys.openExternal(href)
       }}
     >
       {children}

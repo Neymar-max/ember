@@ -41,6 +41,9 @@ export default {
     'chat.steps.thinking': '思考过程',
     'chat.steps.failed': '{n} 个失败',
 
+    'chat.delivery.queued': '排队中 · Claude 做完手头这一步就会读到',
+    'chat.delivery.read': '已读到',
+    'chat.delivery.cancelled': '未送达（已取消）',
     'chat.running.thinking': '正在思考…',
     'chat.running.compacting': '正在压缩上下文…',
     'chat.running.tool': '正在运行 {name}…',
@@ -119,6 +122,9 @@ export default {
     'chat.steps.thinking': 'Thought process',
     'chat.steps.failed': '{n} failed',
 
+    'chat.delivery.queued': 'Queued · Claude will read it after the current step',
+    'chat.delivery.read': 'Read',
+    'chat.delivery.cancelled': 'Not delivered (cancelled)',
     'chat.running.thinking': 'Thinking…',
     'chat.running.compacting': 'Compacting context…',
     'chat.running.tool': 'Running {name}…',

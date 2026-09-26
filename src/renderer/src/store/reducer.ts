@@ -36,6 +36,8 @@ export function applySdkMessage(state: ChatState, msg: RawSdkMessage, opts?: { l
   let tools = state.tools
   let todos = state.todos
   let backgroundTasks = state.backgroundTasks
+  let queued = state.queued ?? []
+  const prevStatus = state.status
   let streamOpen = state.streamOpen ?? {}
   const patch: Partial<ChatState> = {
     lastActivity: live ? Date.now() : parseTimestamp(m.timestamp) ?? state.lastActivity,
@@ -437,7 +439,32 @@ export function applySdkMessage(state: ChatState, msg: RawSdkMessage, opts?: { l
     })
   }
 
+  function setDelivery(uuid: string | undefined, state: 'read' | 'cancelled'): void {
+    if (!uuid) return
+    // A queued message joins the transcript at the moment Claude actually reads it.
+    const q = queued.find((it) => it.id === uuid)
+    if (q) {
+      queued = queued.filter((it) => it !== q)
+      finalizeAllStreamingParts()
+      pushItem({ ...q, pending: false, delivery: state })
+      // Picked up after the previous turn ended → a new turn starts now.
+      if (state === 'read' && (patch.status ?? prevStatus) !== 'running') {
+        patch.status = 'running'
+        patch.turnStartedAt = Date.now()
+      }
+      return
+    }
+    const i = items.findIndex((it) => it.kind === 'user' && it.id === uuid)
+    if (i < 0) return
+    const it = items[i] as Extract<ChatItem, { kind: 'user' }>
+    if (it.delivery && it.delivery !== 'queued') return
+    if (!it.delivery && state === 'read') return // sent while idle — nothing to show
+    items = replaceAt(items, i, { ...it, delivery: state })
+  }
+
   function handleResult(msg2: any): void {
+    // Older CLIs without command_lifecycle: the result lists every user message the turn consumed.
+    for (const u of (msg2.user_message_uuids as string[] | undefined) ?? []) setDelivery(u, 'read')
     const isError = !!msg2.is_error || msg2.subtype !== 'success'
     const interrupted = msg2.terminal_reason === 'aborted_streaming'
     const errorText = isError ? (typeof msg2.result === 'string' && msg2.result ? msg2.result : Array.isArray(msg2.errors) ? msg2.errors.join('\n') : undefined) : undefined
@@ -487,20 +514,38 @@ export function applySdkMessage(state: ChatState, msg: RawSdkMessage, opts?: { l
     const byId = new Map(backgroundTasks.map((t) => [t.taskId, t]))
     const next: BackgroundTask[] = rawTasks.map((t) => {
       const prev = byId.get(t.task_id)
-      return prev ? { ...prev, description: t.description } : { taskId: t.task_id, description: t.description, status: 'running' }
+      return prev ? { ...prev, description: t.description, ambient: t.ambient ?? prev.ambient, taskType: prev.taskType ?? t.task_type } : { taskId: t.task_id, description: t.description, status: 'running', taskType: t.task_type, ambient: t.ambient, startedAt: Date.now() }
     })
     for (const t of backgroundTasks) if (!liveIds.has(t.taskId) && t.status !== 'running') next.push(t)
     backgroundTasks = next
   }
   function handleTaskStarted(msg2: any): void {
     const idx = backgroundTasks.findIndex((t) => t.taskId === msg2.task_id)
-    const entry: BackgroundTask = { taskId: msg2.task_id, description: msg2.description, toolUseId: msg2.tool_use_id, status: 'running' }
+    const prev = idx >= 0 ? backgroundTasks[idx] : undefined
+    const entry: BackgroundTask = {
+      ...prev,
+      taskId: msg2.task_id,
+      description: msg2.description,
+      toolUseId: msg2.tool_use_id,
+      status: 'running',
+      taskType: msg2.task_type ?? prev?.taskType,
+      subagentType: msg2.subagent_type ?? prev?.subagentType,
+      workflowName: msg2.workflow_name ?? prev?.workflowName,
+      startedAt: prev?.startedAt ?? parseTimestamp(msg2.timestamp) ?? Date.now(),
+      ambient: msg2.ambient ?? prev?.ambient,
+    }
     backgroundTasks = idx >= 0 ? replaceAt(backgroundTasks, idx, entry) : [...backgroundTasks, entry]
     if (msg2.tool_use_id && tools[msg2.tool_use_id]) tools = { ...tools, [msg2.tool_use_id]: { ...tools[msg2.tool_use_id], status: 'running' } }
   }
   function handleTaskProgress(msg2: any): void {
     const idx = backgroundTasks.findIndex((t) => t.taskId === msg2.task_id)
-    if (idx >= 0) replaceAtBg(idx, { ...backgroundTasks[idx], summary: msg2.summary })
+    const usage = msg2.usage ? { totalTokens: msg2.usage.total_tokens, toolUses: msg2.usage.tool_uses, durationMs: msg2.usage.duration_ms } : undefined
+    if (idx >= 0) {
+      const prev = backgroundTasks[idx]
+      replaceAtBg(idx, { ...prev, summary: msg2.summary ?? prev.summary, usage: usage ?? prev.usage, lastToolName: msg2.last_tool_name ?? prev.lastToolName, subagentType: msg2.subagent_type ?? prev.subagentType })
+    } else {
+      backgroundTasks = [...backgroundTasks, { taskId: msg2.task_id, description: msg2.description ?? '', toolUseId: msg2.tool_use_id, status: 'running', summary: msg2.summary, usage, lastToolName: msg2.last_tool_name, subagentType: msg2.subagent_type, startedAt: Date.now() }]
+    }
     const tc = msg2.tool_use_id ? tools[msg2.tool_use_id] : undefined
     if (tc) {
       tools = {
@@ -519,7 +564,12 @@ export function applySdkMessage(state: ChatState, msg: RawSdkMessage, opts?: { l
     const mapped = msg2.patch?.status ? statusMap[msg2.patch.status] : undefined
     if (idx < 0) return
     const prev = backgroundTasks[idx]
-    replaceAtBg(idx, { ...prev, status: mapped ?? prev.status, description: msg2.patch?.description ?? prev.description })
+    replaceAtBg(idx, {
+      ...prev,
+      status: mapped ?? prev.status,
+      description: msg2.patch?.description ?? prev.description,
+      endedAt: msg2.patch?.end_time ?? (mapped && mapped !== 'running' ? Date.now() : prev.endedAt),
+    })
     if (prev.toolUseId && mapped && tools[prev.toolUseId]) {
       const toolStatus: ToolStatus = mapped === 'completed' ? 'done' : mapped === 'failed' ? 'error' : mapped === 'stopped' ? 'interrupted' : 'running'
       tools = { ...tools, [prev.toolUseId]: { ...tools[prev.toolUseId], status: toolStatus } }
@@ -528,8 +578,10 @@ export function applySdkMessage(state: ChatState, msg: RawSdkMessage, opts?: { l
   function handleTaskNotification(msg2: any): void {
     const idx = backgroundTasks.findIndex((t) => t.taskId === msg2.task_id)
     const status = msg2.status as BackgroundTask['status']
-    if (idx >= 0) replaceAtBg(idx, { ...backgroundTasks[idx], status, summary: msg2.summary })
-    else backgroundTasks = [...backgroundTasks, { taskId: msg2.task_id, description: msg2.summary ?? '', toolUseId: msg2.tool_use_id, status, summary: msg2.summary }]
+    const usage = msg2.usage ? { totalTokens: msg2.usage.total_tokens, toolUses: msg2.usage.tool_uses, durationMs: msg2.usage.duration_ms } : undefined
+    const endedAt = parseTimestamp(msg2.timestamp) ?? Date.now()
+    if (idx >= 0) replaceAtBg(idx, { ...backgroundTasks[idx], status, summary: msg2.summary, endedAt, usage: usage ?? backgroundTasks[idx].usage })
+    else backgroundTasks = [...backgroundTasks, { taskId: msg2.task_id, description: msg2.summary ?? '', toolUseId: msg2.tool_use_id, status, summary: msg2.summary, endedAt, usage }]
     const toolUseId = msg2.tool_use_id ?? backgroundTasks.find((t) => t.taskId === msg2.task_id)?.toolUseId
     if (toolUseId && tools[toolUseId]) {
       const toolStatus: ToolStatus = status === 'completed' ? 'done' : status === 'failed' ? 'error' : 'interrupted'
@@ -633,6 +685,12 @@ export function applySdkMessage(state: ChatState, msg: RawSdkMessage, opts?: { l
       }
       break
     }
+    case 'command_lifecycle': {
+      // queued → started (the CLI took the message off its queue and the model will now see it) → completed
+      const state = m.state === 'started' || m.state === 'completed' ? 'read' : m.state === 'cancelled' ? 'cancelled' : null
+      if (state) setDelivery(m.command_uuid, state)
+      break
+    }
     case 'auth_status':
       if (m.error) pushNotice('error', m.error)
       break
@@ -640,7 +698,7 @@ export function applySdkMessage(state: ChatState, msg: RawSdkMessage, opts?: { l
       break // rate_limit_event, tool_use_summary, memory_recall, prompt_suggestion, … — ignored (rule 9).
   }
 
-  return { ...state, ...patch, items, tools, todos, backgroundTasks, streamOpen }
+  return { ...state, ...patch, items, tools, todos, backgroundTasks, streamOpen, queued }
 }
 
 /** Replay a loaded history transcript through the same reducer live messages go through, so the

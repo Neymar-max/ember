@@ -36,6 +36,8 @@ export type ChatItem =
       attachments?: string[]
       /** optimistic message not yet acknowledged by the CLI */
       pending?: boolean
+      /** sent while Claude was busy: 'queued' until the CLI actually picks it up ('read') */
+      delivery?: 'queued' | 'read' | 'cancelled'
       /** set when the user message was a slash command, e.g. {name: 'compact', args: ''} */
       command?: { name: string; args: string }
       timestamp?: number
@@ -111,6 +113,16 @@ export interface BackgroundTask {
   toolUseId?: string
   status: 'running' | 'completed' | 'failed' | 'stopped'
   summary?: string
+  /** CLI task_type: 'local_agent' | 'local_workflow' | 'local_bash' | 'monitor' | … */
+  taskType?: string
+  subagentType?: string
+  workflowName?: string
+  startedAt?: number
+  endedAt?: number
+  usage?: { totalTokens?: number; toolUses?: number; durationMs?: number }
+  lastToolName?: string
+  /** housekeeping task — keep out of activity indicators */
+  ambient?: boolean
 }
 
 export interface ChatState {
@@ -130,6 +142,8 @@ export interface ChatState {
   pendingPermissions: PermissionRequest[]
   todos: TodoItem[]
   backgroundTasks: BackgroundTask[]
+  /** messages sent while Claude was busy that the CLI hasn't picked up yet (shown at the bottom) */
+  queued?: Extract<ChatItem, { kind: 'user' }>[]
   /** live estimate while the model is thinking */
   thinkingTokens?: number
   /** CLI status message: 'requesting' | 'compacting' | null */

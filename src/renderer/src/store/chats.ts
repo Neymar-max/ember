@@ -181,12 +181,15 @@ export const useChats = create<ChatsStore>((set, get) => ({
     const chat = get().chats[chatId]
     if (!chat) return
     const id = uuid()
-    const userItem: ChatItem = { kind: 'user', id, text, images: images?.map(attachmentToImageRef), pending: true, timestamp: Date.now() }
+    // Sent while Claude is mid-turn: the CLI queues it until the current step finishes.
+    const busy = chat.status === 'running' || chat.status === 'starting'
+    const userItem: ChatItem = { kind: 'user', id, text, images: images?.map(attachmentToImageRef), pending: true, timestamp: Date.now(), ...(busy ? { delivery: 'queued' as const } : {}) }
     set((s) => {
       const c = s.chats[chatId]
       if (!c) return s
       // Provisional title from the first prompt until the CLI's own session title arrives via history refresh.
       const title = c.title || text.trim().split('\n')[0].slice(0, 60)
+      if (busy) return { chats: { ...s.chats, [chatId]: { ...c, title, queued: [...(c.queued ?? []), userItem as Extract<ChatItem, { kind: 'user' }>] } } }
       return { chats: { ...s.chats, [chatId]: { ...c, title, items: [...c.items, userItem], status: 'running', turnStartedAt: Date.now(), error: undefined } } }
     })
     try {

@@ -6,7 +6,7 @@
 import { ipcMain } from 'electron'
 import { IPC } from '@shared/ipc'
 import { DEFAULT_SETTINGS, type AppSettings, type EffortChoice, type PermissionMode, type PermissionResponse, type SendPayload, type StartOptions } from '@shared/types'
-import { suggestFiles } from './files'
+import { suggestFiles, readPreview, recentFiles } from './files'
 import * as history from './history'
 import { log } from './log'
 import { getEnvStatus, recheckEnv } from './probe'
@@ -208,6 +208,15 @@ export function registerIpcHandlers(ctx: IpcContext): void {
       return await suggestFiles(cwd, query)
     } catch (e) {
       fail(IPC.filesSuggest, e)
+      return []
+    }
+  })
+  ipcMain.handle(IPC.filesRead, async (_e, path: string, cwd?: string) => readPreview(path, cwd))
+  ipcMain.handle(IPC.filesRecent, async (_e, cwd: string, sinceMs: number) => {
+    try {
+      return await recentFiles(cwd, sinceMs)
+    } catch (e) {
+      fail(IPC.filesRecent, e)
       return []
     }
   })

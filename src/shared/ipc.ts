@@ -3,7 +3,7 @@
  * main registers `ipcMain.handle(IPC.xxx, ...)` for every invoke channel;
  * preload wraps them 1:1 (see src/preload/index.ts).
  */
-import type {
+import type { FilePreview, RecentFile,
   AppInfo,
   AppSettings,
   ContextUsage,
@@ -62,6 +62,8 @@ export const IPC = {
 
   // files & system
   filesSuggest: 'files:suggest', // (cwd, query) => FileSuggestion[]
+  filesRead: 'files:read', // (path, cwd?) => FilePreview  (text preview for the side panel)
+  filesRecent: 'files:recent', // (cwd, sinceMs) => RecentFile[]  (files changed in cwd since a time)
   pickDirectory: 'sys:pick-directory', // (defaultPath?) => string | null
   pickImages: 'sys:pick-images', // () => ImageAttachment[]
   pickExecutable: 'sys:pick-executable', // () => string | null
@@ -118,6 +120,8 @@ export interface EmberAPI {
   }
   files: {
     suggest(cwd: string, query: string): Promise<FileSuggestion[]>
+    read(path: string, cwd?: string): Promise<FilePreview>
+    recent(cwd: string, sinceMs: number): Promise<RecentFile[]>
     /** Absolute filesystem path of a dropped/pasted File ('' if it has none). Synchronous, preload-only. */
     pathForFile(file: File): string
   }

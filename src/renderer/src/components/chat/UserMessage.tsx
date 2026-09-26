@@ -1,5 +1,5 @@
 /** Right-aligned user bubble: plain text, slash-command chip, or image attachments (§4.2). */
-import { FileText } from 'lucide-react'
+import { Check, Clock, FileText } from 'lucide-react'
 import { useState } from 'react'
 import { CopyButton } from '@/components/common/CopyButton'
 import { useT } from '@/i18n'
@@ -13,7 +13,7 @@ export function UserMessage({ item }: { item: Extract<ChatItem, { kind: 'user' }
 
   return (
     <div className="em-chat-user-wrap" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
-      <div className={item.pending ? 'em-chat-user is-pending' : 'em-chat-user'}>
+      <div className={item.delivery === 'queued' ? 'em-chat-user is-queued' : item.pending ? 'em-chat-user is-pending' : 'em-chat-user'}>
         {item.command ? (
           <div className="em-chat-user__command">
             <span className="em-mono em-chat-user__command-name">/{item.command.name}</span>
@@ -32,6 +32,12 @@ export function UserMessage({ item }: { item: Extract<ChatItem, { kind: 'user' }
           </>
         )}
       </div>
+      {item.delivery && (
+        <div className={`em-chat-user__delivery is-${item.delivery}`} role="status">
+          {item.delivery === 'queued' ? <Clock size={12} strokeWidth={2} /> : item.delivery === 'read' ? <Check size={12} strokeWidth={2.2} /> : null}
+          <span>{t(`chat.delivery.${item.delivery}`)}</span>
+        </div>
+      )}
       {item.attachments && item.attachments.length > 0 && (
         <div className="em-chat-user__attachments">
           {item.attachments.map((p) => (

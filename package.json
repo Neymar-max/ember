@@ -1,7 +1,7 @@
 {
   "name": "ember",
   "productName": "Ember",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A warm, readable desktop UI for the Claude Code CLI",
   "main": "./out/main/index.js",
   "author": "Ember",

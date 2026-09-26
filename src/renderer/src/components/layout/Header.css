@@ -94,3 +94,19 @@
   color: var(--text-3);
   font-variant-numeric: tabular-nums;
 }
+
+.em-shell-header__panel.is-active {
+  background: var(--bg-active);
+  color: var(--text-1);
+}
+.em-shell-header__badge {
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 8px;
+  background: var(--accent-brand);
+  color: #fff;
+  font-size: 11px;
+  line-height: 16px;
+  text-align: center;
+}
