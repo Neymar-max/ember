@@ -1,0 +1,55 @@
+appId: app.ember.desktop
+productName: Ember
+copyright: Copyright © 2026 Ember
+directories:
+  output: release
+  buildResources: build
+# Everything (incl. the Agent SDK) is bundled by electron-vite into out/, so no node_modules ship.
+files:
+  - out/**
+  - package.json
+  - '!**/*.map'
+asar: true
+compression: maximum
+npmRebuild: false
+# Only ship Chromium's UI strings for the languages Ember itself supports (saves ~49 MB unpacked).
+electronLanguages: [en, zh_CN, zh_TW]
+mac:
+  target:
+    - target: dmg
+      arch: [arm64, x64]
+  icon: build/icon.icns
+  category: public.app-category.developer-tools
+  minimumSystemVersion: '12.0'
+  identity: '-'
+  hardenedRuntime: false
+  gatekeeperAssess: false
+  notarize: false
+  entitlements: build/entitlements.mac.plist
+  entitlementsInherit: build/entitlements.mac.plist
+  extendInfo:
+    NSHumanReadableCopyright: Ember — a warm desktop UI for the Claude Code CLI
+    LSApplicationCategoryType: public.app-category.developer-tools
+afterSign: build/afterSign.cjs
+dmg:
+  format: ULFO # lzfse, macOS 10.11+; smaller than the default zlib UDZO
+  title: Ember ${version}
+  icon: build/icon.icns
+  background: build/dmg-background.png
+  iconSize: 96
+  window:
+    width: 660
+    height: 440
+  contents:
+    - x: 180
+      y: 176
+      type: file
+    - x: 480
+      y: 176
+      type: link
+      path: /Applications
+    - x: 330
+      y: 352
+      type: file
+      path: build/打不开请看我.txt
+artifactName: ${productName}-${version}-${arch}.${ext}

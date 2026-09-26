@@ -1,0 +1,161 @@
+// Dictionary for the 'tools' area (tool-call rows/bodies + the interactive cards docked
+// above the composer — both owned by the tools work package). Keys must start with 'tools.'.
+export default {
+  zh: {
+    // verbs / row labels
+    'tools.bash.verb': '运行',
+    'tools.read.verb': '读取',
+    'tools.read.lines': '第 {a}–{b} 行',
+    'tools.edit.verb': '编辑',
+    'tools.edit.editN': '编辑 {n}/{total}',
+    'tools.write.create': '创建',
+    'tools.write.update': '写入',
+    'tools.grep.verb': '搜索',
+    'tools.glob.verb': '查找文件',
+    'tools.websearch.verb': '搜索网页',
+    'tools.webfetch.verb': '读取网页',
+    'tools.agent.verb': '子代理',
+    'tools.agent.background': '后台运行中',
+    'tools.agent.thought': '已思考',
+    'tools.agent.thoughtEmpty': '已思考 · 约 {n} tokens',
+    'tools.tasks.updated': '更新了任务列表',
+    'tools.toolsearch.verb': '加载工具 · {q}',
+    'tools.skill.verb': '使用技能',
+    'tools.notebook.verb': '编辑笔记本',
+    'tools.plan.title': '计划',
+    'tools.plan.enter': '进入计划模式',
+    'tools.plan.approved': '已批准',
+    'tools.plan.rejected': '已拒绝',
+    'tools.plan.interrupted': '已中断',
+    'tools.plan.pending': '等待批准…',
+    'tools.ask.verb': '已回答问题',
+    'tools.ask.verbAsking': 'Claude 在提问',
+    'tools.ask.verbSkipped': '未回答的问题',
+    'tools.ask.moreCount': '还有 {n} 个问题',
+    'tools.ask.noAnswer': '（未回答）',
+
+    // status badges
+    'tools.status.waiting': '等待确认',
+    'tools.status.denied': '已拒绝',
+    'tools.status.interrupted': '已中断',
+
+    // shared body chrome
+    'tools.generic.empty': '没有内容',
+
+    // Bash body
+    'tools.bash.noOutput': '（无输出）',
+    'tools.bash.interrupted': '命令已被中断',
+    'tools.bash.timedOut': '命令超时，已转入后台运行',
+    'tools.bash.showAll': '显示全部 {n} 行',
+
+    // Diff view
+    'tools.diff.showAll': '显示全部 {n} 行',
+
+    // Task panel
+    'tools.tasks.title': '任务 {done}/{total}',
+    'tools.tasks.allDone': '全部 {n} 个任务已完成',
+
+    // permission card
+    'tools.perm.titleBash': 'Claude 想要运行命令',
+    'tools.perm.titleEdit': 'Claude 想要编辑 {name}',
+    'tools.perm.titleWrite': 'Claude 想要创建 {name}',
+    'tools.perm.titleRead': 'Claude 想要读取 {name}',
+    'tools.perm.titleNotebook': 'Claude 想要编辑笔记本 {name}',
+    'tools.perm.titleGeneric': 'Claude 想要使用 {name}',
+    'tools.perm.allow': '允许',
+    'tools.perm.alwaysAllow': '本次会话都允许',
+    'tools.perm.alwaysAllowEdits': '将切换到自动接受编辑模式',
+    'tools.perm.alwaysAllowGeneric': '以后自动允许此操作',
+    'tools.perm.deny': '拒绝',
+    'tools.perm.tellClaude': '告诉 Claude 怎么做…',
+    'tools.perm.feedbackPlaceholder': '说说你希望 Claude 怎么做…',
+    'tools.perm.send': '发送',
+    'tools.perm.more': '还有 {n} 个待确认',
+
+    // plan approval card
+    'tools.plan.approveTitle': 'Claude 制定了计划，是否开始执行？',
+    'tools.plan.approveAuto': '批准并自动接受编辑',
+    'tools.plan.approveStep': '批准，逐项确认',
+    'tools.plan.refine': '继续完善计划',
+    'tools.plan.refinePlaceholder': '说说计划哪里需要调整…',
+
+    // question card
+    'tools.ask.otherPlaceholder': '其他…',
+    'tools.ask.submit': '提交',
+    'tools.ask.skip': '跳过',
+  },
+  en: {
+    'tools.bash.verb': 'Ran',
+    'tools.read.verb': 'Read',
+    'tools.read.lines': 'lines {a}–{b}',
+    'tools.edit.verb': 'Edited',
+    'tools.edit.editN': 'Edit {n}/{total}',
+    'tools.write.create': 'Created',
+    'tools.write.update': 'Wrote',
+    'tools.grep.verb': 'Searched',
+    'tools.glob.verb': 'Found files',
+    'tools.websearch.verb': 'Searched the web',
+    'tools.webfetch.verb': 'Fetched',
+    'tools.agent.verb': 'Subagent',
+    'tools.agent.background': 'Running in background',
+    'tools.agent.thought': 'Thought',
+    'tools.agent.thoughtEmpty': 'Thought · ~{n} tokens',
+    'tools.tasks.updated': 'Updated the task list',
+    'tools.toolsearch.verb': 'Loaded tools · {q}',
+    'tools.skill.verb': 'Used skill',
+    'tools.notebook.verb': 'Edited notebook',
+    'tools.plan.title': 'Plan',
+    'tools.plan.enter': 'Entered plan mode',
+    'tools.plan.approved': 'Approved',
+    'tools.plan.rejected': 'Rejected',
+    'tools.plan.interrupted': 'Interrupted',
+    'tools.plan.pending': 'Awaiting approval…',
+    'tools.ask.verb': 'Answered a question',
+    'tools.ask.verbAsking': 'Claude is asking',
+    'tools.ask.verbSkipped': 'Unanswered question',
+    'tools.ask.moreCount': '{n} more question(s)',
+    'tools.ask.noAnswer': '(not answered)',
+
+    'tools.status.waiting': 'Waiting',
+    'tools.status.denied': 'Denied',
+    'tools.status.interrupted': 'Interrupted',
+
+    'tools.generic.empty': 'Nothing to show',
+
+    'tools.bash.noOutput': '(no output)',
+    'tools.bash.interrupted': 'Command was interrupted',
+    'tools.bash.timedOut': 'Command timed out and moved to the background',
+    'tools.bash.showAll': 'Show all {n} lines',
+
+    'tools.diff.showAll': 'Show all {n} lines',
+
+    'tools.tasks.title': 'Tasks {done}/{total}',
+    'tools.tasks.allDone': 'All {n} tasks done',
+
+    'tools.perm.titleBash': 'Claude wants to run a command',
+    'tools.perm.titleEdit': 'Claude wants to edit {name}',
+    'tools.perm.titleWrite': 'Claude wants to create {name}',
+    'tools.perm.titleRead': 'Claude wants to read {name}',
+    'tools.perm.titleNotebook': 'Claude wants to edit notebook {name}',
+    'tools.perm.titleGeneric': 'Claude wants to use {name}',
+    'tools.perm.allow': 'Allow',
+    'tools.perm.alwaysAllow': 'Allow for this session',
+    'tools.perm.alwaysAllowEdits': 'Switches to auto-accept edits mode',
+    'tools.perm.alwaysAllowGeneric': 'Automatically allows this from now on',
+    'tools.perm.deny': 'Deny',
+    'tools.perm.tellClaude': 'Tell Claude what to do…',
+    'tools.perm.feedbackPlaceholder': 'Tell Claude what you want instead…',
+    'tools.perm.send': 'Send',
+    'tools.perm.more': '{n} more waiting',
+
+    'tools.plan.approveTitle': "Claude made a plan — start executing it?",
+    'tools.plan.approveAuto': 'Approve, auto-accept edits',
+    'tools.plan.approveStep': 'Approve, confirm each step',
+    'tools.plan.refine': 'Keep refining the plan',
+    'tools.plan.refinePlaceholder': "What should change about the plan…",
+
+    'tools.ask.otherPlaceholder': 'Other…',
+    'tools.ask.submit': 'Submit',
+    'tools.ask.skip': 'Skip',
+  },
+}

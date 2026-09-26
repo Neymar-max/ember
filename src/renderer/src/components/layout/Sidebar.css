@@ -1,0 +1,123 @@
+.em-shell-sidebar {
+  width: var(--sidebar-width);
+  flex: none;
+  height: 100%;
+  background: var(--bg-sidebar);
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border-1);
+}
+.em-shell-sidebar__topbar {
+  height: 52px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  padding-left: var(--titlebar-inset);
+  padding-right: 10px;
+  justify-content: flex-end;
+}
+.em-shell-sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px 14px;
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-1);
+  flex: none;
+}
+.em-shell-sidebar__section {
+  flex: none;
+  padding: 0 10px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.em-shell-newchat {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  height: 34px;
+  padding: 0 8px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: transparent;
+  color: var(--text-1);
+  font-size: 13.5px;
+  text-align: left;
+  transition: background var(--dur-fast) var(--ease);
+}
+.em-shell-newchat:hover {
+  background: var(--bg-hover);
+}
+.em-shell-newchat__icon {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--text-on-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.em-shell-newchat__label {
+  flex: 1;
+}
+.em-shell-newchat__hint {
+  color: var(--text-4);
+  font-size: 11px;
+}
+
+.em-shell-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  padding: 0 9px;
+  border-radius: var(--radius-md);
+  color: var(--text-3);
+  transition: background var(--dur-fast) var(--ease);
+}
+.em-shell-search:focus-within {
+  background: var(--bg-surface);
+  color: var(--text-2);
+}
+.em-shell-search input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  color: var(--text-1);
+  user-select: text;
+  cursor: auto;
+}
+.em-shell-search input::placeholder {
+  color: var(--text-4);
+}
+.em-shell-search svg {
+  flex: none;
+}
+
+.em-shell-filter-chip {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 24px;
+  padding: 0 9px;
+  margin-top: 2px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-1);
+  background: transparent;
+  color: var(--text-3);
+  font-size: 11.5px;
+}
+.em-shell-filter-chip:hover {
+  border-color: var(--border-2);
+  color: var(--text-2);
+}

@@ -1,0 +1,36 @@
+.em-shell-usage {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 2px 2px 10px;
+}
+.em-shell-usage__row {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.em-shell-usage__label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-3);
+}
+.em-shell-usage__pct {
+  font-weight: 600;
+  color: var(--text-2);
+}
+.em-shell-usage__track {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--bg-active);
+  overflow: hidden;
+}
+.em-shell-usage__fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--text-4);
+  transition: width var(--dur) var(--ease);
+}
+.em-shell-usage__fill--warning { background: var(--warning); }
+.em-shell-usage__fill--danger { background: var(--danger); }

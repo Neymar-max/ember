@@ -1,0 +1,29 @@
+【Ember 首次打开说明】
+
+如果双击 Ember 时提示「无法打开」「无法验证开发者」或「已损坏」，
+不是文件坏了：这个 App 没有购买 Apple 开发者证书做公证，macOS 默认会拦一下。
+任选一种方法处理，只需要做一次：
+
+方法一（图形界面）
+1. 先把 Ember 拖进「应用程序」文件夹。
+2. 在「应用程序」里双击 Ember，弹出拦截提示时点「完成」（不要点「移到废纸篓」）。
+3. 打开「系统设置 → 隐私与安全性」，往下滚，找到「已阻止打开 Ember」这一行，
+   点右边的「仍要打开」，按提示输入密码或 Touch ID。之后就能正常打开了。
+
+方法二（终端一条命令）
+1. 先把 Ember 拖进「应用程序」文件夹。
+2. 打开「终端」，粘贴下面这行命令并回车：
+   xattr -dr com.apple.quarantine /Applications/Ember.app
+3. 之后正常双击打开即可。
+
+使用前提
+- 这台 Mac 上已经装好 Claude Code 命令行（终端里能运行 claude），并且已经登录过。
+  还没装：在终端运行  curl -fsSL https://claude.ai/install.sh | bash
+  还没登录：在终端运行  claude  ，然后输入 /login 按提示登录。
+- Ember 直接使用你本机 Claude Code 的登录状态和配置，不需要在 Ember 里再登录，也不会上传任何数据。
+
+----------------------------------------------------------------
+[English] If macOS says Ember "can't be opened" or "is damaged": move Ember to Applications,
+then either System Settings → Privacy & Security → "Open Anyway", or run in Terminal:
+  xattr -dr com.apple.quarantine /Applications/Ember.app
+Requires Claude Code CLI installed and logged in (run `claude`, then `/login`).

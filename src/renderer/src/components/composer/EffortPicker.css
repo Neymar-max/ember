@@ -1,0 +1,155 @@
+.em-effort-chip {
+  flex: none;
+  height: 26px;
+  padding: 0 10px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--bg-active);
+  color: var(--text-1);
+  font-size: 13px;
+  white-space: nowrap;
+  transition: background var(--dur-fast) var(--ease);
+}
+.em-effort-chip:hover,
+.em-effort-chip.is-open {
+  background: var(--bg-selected);
+}
+.em-effort-chip.is-ultra {
+  color: var(--accent-text);
+  font-weight: 600;
+}
+
+.em-effort {
+  padding: 16px 18px 14px;
+  cursor: default;
+}
+.em-effort__head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.em-effort__title {
+  font-size: 15px;
+  color: var(--text-3);
+}
+.em-effort__value {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-1);
+}
+.em-effort__value.is-ultra {
+  color: var(--accent-text);
+  font-weight: 600;
+}
+.em-effort__help {
+  align-self: center;
+  display: inline-flex;
+  color: var(--text-3);
+  cursor: help;
+}
+.em-effort__ends {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--text-3);
+  margin-bottom: 8px;
+}
+
+/* Thick pill track. Thumb is 36px wide and inset 2px, so its centre travels 20px … 100%-20px. */
+.em-effort__track {
+  --thumb: 36px;
+  --inset: 2px;
+  --fill-color: var(--effort-high);
+  position: relative;
+  height: 34px;
+  border-radius: 12px;
+  background: var(--bg-active);
+  overflow: hidden;
+}
+.em-effort__track[data-level='low'] { --fill-color: var(--effort-low); }
+.em-effort__track[data-level='medium'] { --fill-color: var(--effort-medium); }
+.em-effort__track[data-level='high'] { --fill-color: var(--effort-high); }
+.em-effort__track[data-level='xhigh'] { --fill-color: var(--effort-xhigh); }
+.em-effort__track[data-level='max'] { --fill-color: var(--effort-max); }
+.em-effort__track[data-level='ultracode'] { --fill-color: var(--effort-ultracode); }
+
+.em-effort__fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--thumb) + 2 * var(--inset) + (100% - var(--thumb) - 2 * var(--inset)) * var(--frac));
+  background: var(--fill-color);
+  border-radius: 12px;
+  transition: width 160ms var(--ease), background 200ms var(--ease);
+}
+.em-effort__dot {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--inset) + var(--thumb) / 2 + (100% - var(--thumb) - 2 * var(--inset)) * var(--pos));
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: rgba(31, 30, 29, 0.28);
+  pointer-events: none;
+}
+.em-effort__dot.is-filled {
+  background: rgba(255, 255, 255, 0.75);
+}
+:root[data-theme='dark'] .em-effort__dot {
+  background: rgba(250, 249, 245, 0.3);
+}
+
+.em-effort__range {
+  -webkit-appearance: none;
+  appearance: none;
+  position: absolute;
+  inset: 0 var(--inset);
+  width: calc(100% - 2 * var(--inset));
+  height: 100%;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.em-effort__range::-webkit-slider-runnable-track {
+  height: 34px;
+  background: transparent;
+}
+.em-effort__range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: var(--thumb);
+  height: 30px;
+  margin-top: 2px;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(20, 20, 19, 0.22), 0 0 0 0.5px rgba(20, 20, 19, 0.12);
+  transition: transform var(--dur-fast) var(--ease);
+}
+.em-effort__range:active::-webkit-slider-thumb {
+  transform: scale(0.96);
+}
+.em-effort__range:focus-visible {
+  box-shadow: none;
+}
+.em-effort__range:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 1px 3px rgba(20, 20, 19, 0.22), var(--focus-ring);
+}
+
+.em-effort__foot {
+  margin-top: 10px;
+  min-height: 16px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--text-3);
+}
+.em-effort__reset {
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: inherit;
+  color: var(--accent-text);
+}
+.em-effort__reset:hover {
+  text-decoration: underline;
+}

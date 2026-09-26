@@ -1,0 +1,89 @@
+.em-tool-taskpanel {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-1);
+  border-radius: var(--radius-lg);
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+.em-tool-taskpanel--collapsed {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: none;
+  background: transparent;
+  color: var(--success);
+  font-family: var(--font-ui);
+  font-size: 12.5px;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+.em-tool-taskpanel-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: 38px;
+  padding: 0 12px;
+  border: none;
+  background: transparent;
+  color: var(--text-1);
+  cursor: pointer;
+  font-family: var(--font-ui);
+}
+.em-tool-taskpanel-head:hover { background: var(--bg-hover); }
+.em-tool-taskpanel-head svg { color: var(--text-4); flex: none; }
+.em-tool-taskpanel-title {
+  flex: none;
+  font-size: 13px;
+  font-weight: 500;
+}
+.em-tool-taskpanel-bar {
+  flex: 1;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--bg-active);
+  overflow: hidden;
+}
+.em-tool-taskpanel-bar-fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: var(--radius-full);
+  transition: width var(--dur) var(--ease);
+}
+.em-tool-taskpanel-list {
+  list-style: none;
+  margin: 0;
+  padding: 2px 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.em-tool-taskpanel-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+}
+.em-tool-taskpanel-dot {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--success);
+}
+.em-tool-taskpanel-dot-empty {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--text-4);
+}
+.em-tool-taskpanel-item.is-pending .em-tool-taskpanel-text { color: var(--text-3); }
+.em-tool-taskpanel-item.is-in_progress .em-tool-taskpanel-dot { color: var(--accent); }
+.em-tool-taskpanel-item.is-in_progress .em-tool-taskpanel-text { color: var(--text-1); font-weight: 600; }
+.em-tool-taskpanel-item.is-completed .em-tool-taskpanel-text { color: var(--text-3); text-decoration: line-through; }

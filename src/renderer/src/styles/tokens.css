@@ -1,0 +1,184 @@
+/*
+ * Ember design tokens — modelled on the Claude app (2025 → early 2026, pre-spring-2026 refresh):
+ * warm cream canvas, terracotta accent, serif assistant prose.
+ * Every component must use these variables; never hard-code colours.
+ */
+:root {
+  /* surfaces */
+  --bg-app: #f5f4ed;          /* main canvas — the pale-cream "淡黄" */
+  --bg-sidebar: #eeece2;      /* sidebar, one step deeper */
+  --bg-surface: #ffffff;      /* composer, cards, dialogs, popovers */
+  --bg-surface-2: #faf9f5;    /* secondary surface inside cards (tool bodies) */
+  --bg-user: #e9e6dc;         /* user message bubble */
+  --bg-code: #efede5;         /* fenced code blocks / terminal output */
+  --bg-inline-code: rgba(31, 30, 29, 0.06);
+  --bg-hover: rgba(31, 30, 29, 0.05);
+  --bg-active: rgba(31, 30, 29, 0.09);
+  --bg-selected: #e3e0d4;     /* selected sidebar row */
+  --bg-overlay: rgba(20, 20, 19, 0.28);
+
+  /* text */
+  --text-1: #141413;          /* primary */
+  --text-2: #3d3d3a;          /* secondary / body in UI */
+  --text-3: #73726c;          /* tertiary, meta, placeholders */
+  --text-4: #a3a19a;          /* disabled, faint hints */
+  --text-inline-code: #b1432c; /* claude-style reddish inline code */
+  --text-on-accent: #ffffff;
+
+  /* borders */
+  --border-1: rgba(31, 30, 29, 0.1);   /* hairlines */
+  --border-2: rgba(31, 30, 29, 0.16);  /* inputs, cards */
+  --border-3: rgba(31, 30, 29, 0.28);  /* hover / strong */
+
+  /* accent (terracotta) */
+  --accent: #c6613f;          /* primary buttons, send */
+  --accent-hover: #b4532f;
+  --accent-press: #a2482a;
+  --accent-brand: #d97757;    /* brand glyphs, spinner */
+  --accent-soft: #f5e5dc;     /* tinted backgrounds (permission card) */
+  --accent-soft-border: #e8c4b3;
+  --accent-text: #b4532f;     /* accent-coloured text / links */
+  --focus-ring: 0 0 0 3px rgba(198, 97, 63, 0.18);
+
+  /* semantic */
+  --success: #4d7c3a;
+  --success-soft: #e7efdc;
+  --warning: #a86a12;
+  --warning-soft: #f7ecd6;
+  --danger: #b3382c;
+  --danger-soft: #f6e0dc;
+  --info: #3b6ea8;
+  --info-soft: #e1eaf4;
+  --plan: #6a5a9e;            /* plan mode */
+  --plan-soft: #ebe7f4;
+
+  /* diff */
+  --diff-add-bg: #e4eed8;
+  --diff-add-strong: #cfe2bb;
+  --diff-add-fg: #3a6a2a;
+  --diff-del-bg: #f6e0da;
+  --diff-del-strong: #eec6bc;
+  --diff-del-fg: #9a3a2a;
+  --diff-gutter: #a3a19a;
+
+  /* effort slider fill: warms up with the level; Ultracode adds a violet "orchestration" tint */
+  --effort-low: #b8b09a;
+  --effort-medium: #d6a65c;
+  --effort-high: #dc8a57;
+  --effort-xhigh: #c9653f;
+  --effort-max: #a8432a;
+  --effort-ultracode: linear-gradient(90deg, #c9653f 0%, #b04f5a 55%, #8d5bb5 100%);
+
+  /* typography */
+  --font-ui: 'Inter Variable', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --font-serif-latin: 'Source Serif 4 Variable', 'Iowan Old Style', Georgia, serif;
+  --font-serif: var(--font-serif-latin), 'Songti SC', 'STSong', serif;
+  --font-mono: 'JetBrains Mono Variable', 'SF Mono', Menlo, 'PingFang SC', monospace;
+  /* message prose font — switched by [data-msgfont] on <html> */
+  --font-message: var(--font-serif);
+  --msg-font-size: 16px;
+  --msg-line-height: 1.7;
+
+  /* shape */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-full: 999px;
+
+  /* elevation (very soft, Claude-like) */
+  --shadow-sm: 0 1px 2px rgba(20, 20, 19, 0.04);
+  --shadow-md: 0 2px 8px rgba(20, 20, 19, 0.06), 0 0 0 0.5px rgba(20, 20, 19, 0.08);
+  --shadow-composer: 0 4px 20px rgba(20, 20, 19, 0.045), 0 0 0 0.5px rgba(20, 20, 19, 0.14);
+  --shadow-popover: 0 10px 30px rgba(20, 20, 19, 0.12), 0 0 0 0.5px rgba(20, 20, 19, 0.12);
+
+  /* layout */
+  --sidebar-width: 272px;
+  --header-height: 48px;
+  --content-width: 760px;
+  --titlebar-inset: 78px; /* space for macOS traffic lights */
+
+  /* motion */
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --dur-fast: 120ms;
+  --dur: 180ms;
+
+  color-scheme: light;
+}
+
+:root[data-msgfont='mixed'] {
+  --font-message: var(--font-serif-latin), 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+}
+:root[data-msgfont='sans'] {
+  --font-message: var(--font-ui);
+  --msg-line-height: 1.65;
+}
+
+:root[data-theme='dark'] {
+  --bg-app: #262624;
+  --bg-sidebar: #1f1e1d;
+  --bg-surface: #30302e;
+  --bg-surface-2: #2a2a28;
+  --bg-user: #141413;
+  --bg-code: #1d1d1b;
+  --bg-inline-code: rgba(250, 249, 245, 0.08);
+  --bg-hover: rgba(250, 249, 245, 0.06);
+  --bg-active: rgba(250, 249, 245, 0.1);
+  --bg-selected: #3a3936;
+  --bg-overlay: rgba(0, 0, 0, 0.5);
+
+  --text-1: #faf9f5;
+  --text-2: #dcdad2;
+  --text-3: #a09e96;
+  --text-4: #6f6e68;
+  --text-inline-code: #e8917a;
+  --text-on-accent: #ffffff;
+
+  --border-1: rgba(250, 249, 245, 0.08);
+  --border-2: rgba(250, 249, 245, 0.14);
+  --border-3: rgba(250, 249, 245, 0.26);
+
+  --accent: #d97757;
+  --accent-hover: #e38a6c;
+  --accent-press: #c96a4b;
+  --accent-brand: #d97757;
+  --accent-soft: #3d2c25;
+  --accent-soft-border: #6b4535;
+  --accent-text: #e8917a;
+  --focus-ring: 0 0 0 3px rgba(217, 119, 87, 0.28);
+
+  --success: #8cc27a;
+  --success-soft: #26331f;
+  --warning: #e0b35a;
+  --warning-soft: #3a3020;
+  --danger: #ee8a7c;
+  --danger-soft: #402421;
+  --info: #8ab4e6;
+  --info-soft: #1f2c3a;
+  --plan: #b3a6e0;
+  --plan-soft: #2e2a3d;
+
+  --diff-add-bg: #1f2e1b;
+  --diff-add-strong: #2d4526;
+  --diff-add-fg: #9ccc85;
+  --diff-del-bg: #3a221e;
+  --diff-del-strong: #55302a;
+  --diff-del-fg: #f09a8a;
+  --diff-gutter: #6f6e68;
+
+  --effort-low: #8f8a7c;
+  --effort-medium: #d9ab63;
+  --effort-high: #e09062;
+  --effort-xhigh: #d97757;
+  --effort-max: #c4553a;
+  --effort-ultracode: linear-gradient(90deg, #d97757 0%, #c7607a 55%, #a27fdc 100%);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.35), 0 0 0 0.5px rgba(250, 249, 245, 0.08);
+  --shadow-composer: 0 4px 20px rgba(0, 0, 0, 0.25), 0 0 0 0.5px rgba(250, 249, 245, 0.14);
+  --shadow-popover: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 0 0.5px rgba(250, 249, 245, 0.14);
+
+  color-scheme: dark;
+}

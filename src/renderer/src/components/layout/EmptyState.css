@@ -1,0 +1,63 @@
+.em-shell-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  padding: 0 32px 40px;
+  overflow-y: auto;
+}
+
+.em-shell-empty__greeting {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+.em-shell-empty__title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-weight: 400;
+  color: var(--text-1);
+}
+.em-shell-empty__sub {
+  font-size: 14px;
+  color: var(--text-3);
+}
+
+.em-shell-empty__composer {
+  width: 680px;
+  max-width: 100%;
+}
+
+.em-shell-empty__project {
+  display: flex;
+  justify-content: center;
+}
+
+.em-shell-empty__suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  max-width: 680px;
+}
+.em-shell-empty__chip {
+  height: 30px;
+  padding: 0 14px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-1);
+  background: var(--bg-surface);
+  color: var(--text-2);
+  font-size: 12.5px;
+}
+.em-shell-empty__chip:hover {
+  border-color: var(--border-3);
+  background: var(--bg-hover);
+  color: var(--text-1);
+}

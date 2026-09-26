@@ -1,0 +1,106 @@
+.em-shell-sessions {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 4px 8px 8px;
+}
+.em-shell-sessions__empty {
+  padding: 24px 10px;
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--text-4);
+}
+.em-shell-group + .em-shell-group {
+  margin-top: 10px;
+}
+.em-shell-group__title {
+  padding: 8px 8px 4px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.em-shell-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 34px;
+  padding: 0 6px 0 10px;
+  border-radius: var(--radius-sm);
+  color: var(--text-1);
+  cursor: default;
+}
+.em-shell-row:hover {
+  background: var(--bg-hover);
+}
+.em-shell-row.is-active {
+  background: var(--bg-selected);
+}
+.em-shell-row__dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--accent-brand);
+  animation: em-row-breathe 1.6s ease-in-out infinite;
+}
+@keyframes em-row-breathe {
+  0%, 100% { opacity: 0.35; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1); }
+}
+.em-shell-row__title {
+  flex: 1;
+  min-width: 0;
+  font-size: 13.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.em-shell-row__title-input {
+  flex: 1;
+  min-width: 0;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-3);
+  border-radius: 5px;
+  padding: 3px 6px;
+  font-size: 13px;
+  color: var(--text-1);
+}
+.em-shell-row__badge {
+  flex: none;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--text-on-accent);
+  background: var(--accent);
+  border-radius: 999px;
+  padding: 2px 7px;
+}
+.em-shell-row__more {
+  flex: none;
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+.em-shell-row:hover .em-shell-row__more,
+.em-shell-row__more.is-open {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .em-shell-row__dot { animation: none; }
+}
+
+.em-shell-showmore {
+  width: 100%;
+  margin-top: 4px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+  color: var(--text-3);
+  font-size: 12.5px;
+  text-align: center;
+}
+.em-shell-showmore:hover {
+  background: var(--bg-hover);
+  color: var(--text-2);
+}

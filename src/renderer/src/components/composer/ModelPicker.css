@@ -1,0 +1,7 @@
+.em-modelpick__name {
+  color: var(--text-1);
+}
+.em-modelpick__list {
+  max-height: min(340px, 50vh);
+  overflow-y: auto;
+}

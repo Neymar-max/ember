@@ -1,0 +1,21 @@
+.em-chat-scrolldown {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-2);
+  background: var(--bg-surface);
+  color: var(--text-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  transition: background var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+  z-index: 5;
+}
+.em-chat-scrolldown:hover {
+  background: var(--bg-hover);
+  transform: translateY(-1px);
+}

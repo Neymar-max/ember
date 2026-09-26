@@ -1,0 +1,12 @@
+.em-ix-plan-body {
+  margin: 8px 0 12px;
+}
+.em-ix-plan-text {
+  max-height: 360px;
+  overflow: auto;
+  font-family: var(--font-serif);
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--text-2);
+  padding-right: 4px;
+}

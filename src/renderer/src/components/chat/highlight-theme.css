@@ -1,0 +1,105 @@
+/**
+ * Warm hljs theme (Ember's own — not a copy of a highlight.js stock theme), per SPEC §4.2.
+ * Base text color/background come from tokens (.em-chat-codeblock__pre code / --bg-code);
+ * only foreground *accents* are hard-coded here since they must stay legible against a
+ * cream/near-black canvas regardless of the accent palette in tokens.css.
+ */
+.hljs {
+  color: var(--text-1);
+  background: transparent;
+}
+.hljs-keyword,
+.hljs-operator,
+.hljs-selector-tag,
+.hljs-tag {
+  color: #a3482a;
+}
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attr,
+.hljs-attribute {
+  color: #4d7c3a;
+}
+.hljs-number,
+.hljs-literal,
+.hljs-symbol,
+.hljs-bullet {
+  color: #9a6414;
+}
+.hljs-comment,
+.hljs-quote,
+.hljs-deletion {
+  color: var(--text-3);
+  font-style: italic;
+}
+.hljs-title,
+.hljs-title.function_,
+.hljs-section {
+  color: #3b5f8a;
+}
+.hljs-title.class_,
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #7a4f9e;
+}
+.hljs-doctag,
+.hljs-meta,
+.hljs-meta .hljs-keyword {
+  color: var(--text-3);
+}
+.hljs-variable,
+.hljs-template-variable,
+.hljs-params,
+.hljs-name {
+  color: var(--text-1);
+}
+.hljs-built_in,
+.hljs-selector-id,
+.hljs-selector-class {
+  color: #b1432c;
+}
+.hljs-emphasis {
+  font-style: italic;
+}
+.hljs-strong {
+  font-weight: 600;
+}
+.hljs-link {
+  text-decoration: underline;
+}
+
+:root[data-theme='dark'] .hljs-keyword,
+:root[data-theme='dark'] .hljs-operator,
+:root[data-theme='dark'] .hljs-selector-tag,
+:root[data-theme='dark'] .hljs-tag {
+  color: #e0916c;
+}
+:root[data-theme='dark'] .hljs-string,
+:root[data-theme='dark'] .hljs-regexp,
+:root[data-theme='dark'] .hljs-addition,
+:root[data-theme='dark'] .hljs-attr,
+:root[data-theme='dark'] .hljs-attribute {
+  color: #9ccc85;
+}
+:root[data-theme='dark'] .hljs-number,
+:root[data-theme='dark'] .hljs-literal,
+:root[data-theme='dark'] .hljs-symbol,
+:root[data-theme='dark'] .hljs-bullet {
+  color: #e0b35a;
+}
+:root[data-theme='dark'] .hljs-title,
+:root[data-theme='dark'] .hljs-title.function_,
+:root[data-theme='dark'] .hljs-section {
+  color: #8ab4e6;
+}
+:root[data-theme='dark'] .hljs-title.class_,
+:root[data-theme='dark'] .hljs-type,
+:root[data-theme='dark'] .hljs-class .hljs-title {
+  color: #b3a6e0;
+}
+:root[data-theme='dark'] .hljs-built_in,
+:root[data-theme='dark'] .hljs-selector-id,
+:root[data-theme='dark'] .hljs-selector-class {
+  color: #e8917a;
+}

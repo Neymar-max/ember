@@ -1,0 +1,147 @@
+.em-chat-markdown--message {
+  font-family: var(--font-message);
+  font-size: var(--msg-font-size);
+  line-height: var(--msg-line-height);
+  color: var(--text-1);
+}
+.em-chat-markdown--ui {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-1);
+}
+
+.em-chat-markdown p {
+  margin: 0.9em 0;
+}
+
+/* Long unbroken strings (URLs, hashes, paths) in prose must wrap instead of clipping the bubble —
+ * fenced code blocks are exempt (they scroll horizontally, see CodeBlock.css) (R5). */
+.em-chat-markdown p,
+.em-chat-markdown li,
+.em-chat-markdown blockquote,
+.em-chat-markdown a,
+.em-chat-markdown td,
+.em-chat-inline-code {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.em-chat-markdown > :first-child {
+  margin-top: 0;
+}
+.em-chat-markdown > :last-child {
+  margin-bottom: 0;
+}
+
+.em-chat-markdown h1,
+.em-chat-markdown h2,
+.em-chat-markdown h3,
+.em-chat-markdown h4 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  margin: 1.1em 0 0.5em;
+  line-height: 1.3;
+}
+.em-chat-markdown h1 {
+  font-size: 1.5em;
+}
+.em-chat-markdown h2 {
+  font-size: 1.3em;
+}
+.em-chat-markdown h3 {
+  font-size: 1.12em;
+}
+.em-chat-markdown h4 {
+  font-size: 1em;
+}
+
+.em-chat-markdown ul,
+.em-chat-markdown ol {
+  margin: 0.9em 0;
+  padding-left: 1.4em;
+}
+.em-chat-markdown li {
+  margin: 0.3em 0;
+}
+.em-chat-markdown li > ul,
+.em-chat-markdown li > ol {
+  margin: 0.3em 0;
+}
+.em-chat-markdown li input[type='checkbox'] {
+  margin-right: 0.5em;
+}
+
+.em-chat-markdown blockquote {
+  margin: 0.9em 0;
+  padding-left: 0.9em;
+  border-left: 3px solid var(--border-2);
+  color: var(--text-2);
+}
+
+.em-chat-markdown hr {
+  border: none;
+  border-top: 1px solid var(--border-1);
+  margin: 1.2em 0;
+}
+
+.em-chat-markdown a {
+  color: var(--accent-text);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.em-chat-inline-code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--bg-inline-code);
+  color: var(--text-inline-code);
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+
+.em-chat-table-scroll {
+  overflow-x: auto;
+  margin: 0.9em 0;
+}
+.em-chat-markdown table {
+  border-collapse: collapse;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  width: max-content;
+  min-width: 100%;
+}
+.em-chat-markdown th,
+.em-chat-markdown td {
+  border: 1px solid var(--border-1);
+  padding: 6px 12px;
+  text-align: left;
+}
+.em-chat-markdown th {
+  background: var(--bg-hover);
+  font-weight: 600;
+}
+
+.em-chat-markdown img {
+  max-width: 100%;
+  border-radius: var(--radius-md);
+}
+
+/* GFM task lists: checkbox replaces the bullet */
+.em-chat-markdown ul.contains-task-list {
+  list-style: none;
+  padding-left: 0.2em;
+}
+.em-chat-markdown li.task-list-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55em;
+}
+.em-chat-markdown li.task-list-item > input[type='checkbox'] {
+  flex: none;
+  margin: 0;
+  width: 0.95em;
+  height: 0.95em;
+  transform: translateY(0.12em);
+  accent-color: var(--accent);
+}

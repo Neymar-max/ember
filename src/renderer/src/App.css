@@ -1,0 +1,49 @@
+.em-app {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-app);
+  overflow: hidden;
+}
+
+.em-app-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.em-app-main__body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.em-app-dock {
+  flex: none;
+  width: 100%;
+  max-width: calc(var(--content-width) + 64px);
+  margin: 0 auto;
+  padding: 0 32px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.em-app-collapsed-rail {
+  position: absolute;
+  top: 0;
+  /* Sits to the right of the macOS traffic lights, not on top of them (S5). */
+  left: var(--titlebar-inset);
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  -webkit-app-region: drag;
+  z-index: 5;
+}
+.em-app-collapsed-rail button {
+  -webkit-app-region: no-drag;
+}

@@ -1,0 +1,86 @@
+.em-chat-thinking {
+  margin: 2px 0;
+}
+.em-chat-thinking__row {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  padding: 2px 0;
+  font-family: var(--font-ui);
+  font-size: 12.5px;
+  color: var(--text-3);
+}
+.em-chat-thinking__row:not(:disabled) {
+  cursor: pointer;
+}
+.em-chat-thinking__row:not(:disabled):hover {
+  color: var(--text-2);
+}
+.em-chat-thinking__icon {
+  flex: none;
+}
+.em-chat-thinking__icon.is-active {
+  color: var(--accent-brand);
+  animation: em-chat-thinking-pulse 1.6s ease-in-out infinite;
+}
+@keyframes em-chat-thinking-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.em-chat-thinking__label.is-shimmer {
+  background: linear-gradient(90deg, var(--text-3) 0%, var(--text-1) 50%, var(--text-3) 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: em-chat-shimmer 1.8s linear infinite;
+}
+@keyframes em-chat-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+.em-chat-thinking__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+}
+.em-chat-thinking__row {
+  max-width: 100%;
+}
+.em-chat-thinking__chev {
+  flex: none;
+  opacity: 0;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+.em-chat-thinking__row:hover .em-chat-thinking__chev,
+.em-chat-thinking.is-open .em-chat-thinking__chev {
+  opacity: 1;
+}
+.em-chat-thinking.is-open .em-chat-thinking__chev {
+  transform: rotate(90deg);
+}
+.em-chat-thinking__body {
+  margin: 4px 0 6px 6px;
+  padding-left: 12px;
+  border-left: 2px solid var(--border-2);
+  color: var(--text-2);
+  font-size: 13px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .em-chat-thinking__icon.is-active,
+  .em-chat-thinking__label.is-shimmer {
+    animation: none;
+  }
+}

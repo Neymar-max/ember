@@ -1,0 +1,30 @@
+.em-shell-projectpicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 10px 0 9px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-2);
+  background: var(--bg-surface);
+  color: var(--text-2);
+  font-size: 12.5px;
+  max-width: 260px;
+}
+.em-shell-projectpicker:hover {
+  border-color: var(--border-3);
+  background: var(--bg-hover);
+}
+.em-shell-projectpicker__name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.em-shell-projectpicker svg:first-child {
+  flex: none;
+  color: var(--text-3);
+}
+.em-shell-projectpicker svg:last-child {
+  flex: none;
+  color: var(--text-4);
+}

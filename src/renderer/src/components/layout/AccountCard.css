@@ -1,0 +1,50 @@
+.em-shell-account {
+  flex: none;
+  padding: 10px 14px 14px;
+  border-top: 1px solid var(--border-1);
+}
+.em-shell-account__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease);
+}
+.em-shell-account__row:hover,
+.em-shell-account__row:focus-visible {
+  background: var(--bg-hover);
+}
+.em-shell-account__avatar {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 13px;
+  font-weight: 600;
+}
+.em-shell-account__id {
+  flex: 1;
+  min-width: 0;
+}
+.em-shell-account__name {
+  font-size: 13px;
+  color: var(--text-1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.em-shell-account__meta {
+  font-size: 11.5px;
+  color: var(--text-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

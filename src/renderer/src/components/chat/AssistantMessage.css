@@ -1,0 +1,104 @@
+.em-chat-assistant {
+  display: flex;
+  flex-direction: column;
+}
+
+.em-chat-steps {
+  margin: 0.5em 0 0.9em;
+}
+.em-chat-steps__head {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  background: none;
+  border: none;
+  padding: 2px 0;
+  cursor: pointer;
+  font-family: var(--font-ui);
+  font-size: 15px;
+  color: var(--text-3);
+  text-align: left;
+}
+.em-chat-steps__head:hover {
+  color: var(--text-1);
+}
+.em-chat-steps__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.em-chat-steps__diff {
+  display: inline-flex;
+  gap: 3px;
+  font-variant-numeric: tabular-nums;
+}
+.em-chat-steps__diff .is-add {
+  color: var(--success, #2f8a4a);
+}
+.em-chat-steps__diff .is-del {
+  color: var(--danger, #c0392b);
+}
+.em-chat-steps__failed {
+  color: var(--danger, #c0392b);
+  font-size: 13px;
+}
+.em-chat-steps__chev {
+  flex: none;
+  transition: transform 0.15s ease;
+}
+.em-chat-steps.is-open .em-chat-steps__chev {
+  transform: rotate(90deg);
+}
+.em-chat-steps__label.is-shimmer {
+  background: linear-gradient(90deg, var(--text-3) 0%, var(--text-1) 50%, var(--text-3) 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: em-chat-shimmer 1.8s linear infinite;
+}
+.em-chat-steps__body {
+  margin: 4px 0 2px 2px;
+  padding-left: 14px;
+  border-left: 2px solid var(--border-1);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .em-chat-steps__label.is-shimmer {
+    animation: none;
+  }
+}
+
+.em-chat-fold {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  background: none;
+  border: none;
+  padding: 2px 0;
+  margin: 0.2em 0 0.7em;
+  cursor: pointer;
+  font-family: var(--font-ui);
+  font-size: 15px;
+  color: var(--text-3);
+}
+.em-chat-fold:hover {
+  color: var(--text-1);
+}
+.em-chat-fold__chev {
+  transition: transform 0.15s ease;
+}
+.em-chat-fold.is-open .em-chat-fold__chev {
+  transform: rotate(90deg);
+}
+.em-chat-fold__body {
+  display: flex;
+  flex-direction: column;
+  padding-left: 14px;
+  margin-bottom: 0.6em;
+  border-left: 2px solid var(--border-1);
+}

@@ -1,0 +1,103 @@
+.em-ix-q + .em-ix-q {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-1);
+}
+.em-ix-q-header {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  margin-bottom: 4px;
+}
+.em-ix-q-text {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  color: var(--text-1);
+  margin-bottom: 10px;
+}
+.em-ix-q-options {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.em-ix-q-option-wrap {
+  display: flex;
+  flex-direction: column;
+}
+.em-ix-q-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 12px;
+  background: var(--bg-surface-2);
+  border: 1px solid var(--border-1);
+  border-radius: var(--radius-md);
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+.em-ix-q-option:hover { background: var(--bg-hover); }
+.em-ix-q-option.is-selected {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.em-ix-q-option-mark {
+  flex: none;
+  margin-top: 2px;
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid var(--border-3);
+  background: var(--bg-surface);
+}
+.em-ix-q-option.is-radio .em-ix-q-option-mark { border-radius: var(--radius-full); }
+.em-ix-q-option.is-checkbox .em-ix-q-option-mark { border-radius: 4px; }
+.em-ix-q-option.is-selected .em-ix-q-option-mark {
+  border-color: var(--accent);
+  background: var(--accent);
+  box-shadow: inset 0 0 0 3px var(--bg-surface);
+}
+.em-ix-q-option-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.em-ix-q-option-label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-1);
+}
+.em-ix-q-option-desc {
+  font-size: 12px;
+  color: var(--text-3);
+}
+.em-ix-q-preview {
+  margin-top: 4px;
+  width: 100%;
+  height: 200px;
+  max-height: 240px;
+  border: 1px solid var(--border-1);
+  border-radius: var(--radius-md);
+  background: #fff;
+}
+.em-ix-q-other {
+  margin-top: 8px;
+  width: 100%;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius-md);
+  background: var(--bg-surface-2);
+  color: var(--text-1);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  box-sizing: border-box;
+}
+.em-ix-q-other:focus {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}

@@ -1,0 +1,128 @@
+.em-composer {
+  background: var(--bg-surface);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-composer);
+  padding: 12px 14px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: box-shadow var(--dur) var(--ease);
+}
+.em-composer:focus-within {
+  box-shadow: var(--shadow-composer), 0 0 0 1px var(--border-2);
+}
+.em-composer--docked {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.em-composer__textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  background: transparent;
+  color: var(--text-1);
+  font-family: var(--font-ui);
+  font-size: 15px;
+  line-height: 1.55;
+  max-height: calc(1.55em * 12 + 4px);
+  min-height: calc(1.55em + 4px);
+  padding: 2px 4px 6px;
+  user-select: text;
+  cursor: text;
+  overflow-y: hidden;
+}
+.em-composer__textarea:focus,
+.em-composer__textarea:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+.em-composer__textarea::placeholder {
+  color: var(--text-3);
+}
+
+.em-composer__toolbar {
+  height: 32px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.em-composer__toolbar-left,
+.em-composer__toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.em-composer__send {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: var(--text-on-accent);
+  transition: background var(--dur-fast) var(--ease);
+}
+.em-composer__send:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+.em-composer__send:disabled {
+  background: var(--bg-active);
+  color: var(--text-4);
+  cursor: default;
+}
+.em-composer__send--stop {
+  background: var(--text-1);
+  color: var(--bg-app);
+}
+.em-composer__send--stop:hover {
+  background: var(--text-1);
+  filter: brightness(1.15);
+}
+
+.em-composer__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 26px;
+  padding: 0 9px;
+  border-radius: var(--radius-full);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-3);
+  font-size: 12px;
+  white-space: nowrap;
+  max-width: 100%;
+}
+.em-composer__pill span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.em-composer__pill:hover {
+  background: var(--bg-hover);
+  color: var(--text-2);
+}
+.em-composer__pill--danger {
+  color: var(--danger);
+}
+.em-composer__pill--plan {
+  color: var(--plan);
+}
+.em-composer__pill--model {
+  color: var(--text-2);
+}
+
+.em-composer__notice {
+  font-size: 12px;
+  color: var(--danger);
+  padding: 0 4px;
+}
