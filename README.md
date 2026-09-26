@@ -63,5 +63,7 @@ npm run dist       # 打包 arm64 + x64 两个 DMG，输出到 release/
 
 技术栈：Electron + React + TypeScript，后端使用官方 `@anthropic-ai/claude-agent-sdk`（通过 `pathToClaudeCodeExecutable` 启动用户本机的 CLI）。
 
+本项目以 [MIT 许可证](LICENSE) 开源：可以自由使用、修改、再发布，保留版权声明即可。
+
 字体：Source Serif 4、Inter、JetBrains Mono（均为 SIL Open Font License）。
 Ember 是社区项目，与 Anthropic 无关联；“Claude” 是 Anthropic 的商标。
